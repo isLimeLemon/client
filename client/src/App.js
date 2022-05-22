@@ -1,22 +1,28 @@
-import React, {useState} from 'react'
+import React from 'react'
 import store from './store';
 import { Provider } from 'react-redux';
-
-
-
 import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 
 function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        {
           <Routes>
-            <Route path='/' element={<>LOGIN</>} />
-            <Route path='/' element={<>HOME</>} />
+            <Route path='/*' element={
+              <>
+                <Link to="/login" title="login">LOGIN</Link>
+              </>
+            }/>
+            <Route path='/login' element={
+              <>
+                <Link to="/home"title='home'>HOME</Link>
+              </>
+            }/>
+            <Route path='/home' element={<>
+            <Link to="/login" title='login'>LOGIN</Link>
+            </>} />
           </Routes>
-        }
       </BrowserRouter>
     </Provider>
   );
