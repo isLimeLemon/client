@@ -2,6 +2,7 @@ import {handleActions} from "redux-actions";
 import { types } from "./actions";
 
 const initialState = {
+    validSession:false,
     token:null,
     loginInProgress:false,
     loginSuccess:false,
@@ -10,6 +11,9 @@ const initialState = {
 }
 
 const reducer = handleActions({
+    [types.logOut]:state =>({
+        ...initialState
+    }),
     [types.loginInProgress]:state => ({
         ...state,
         loginInProgress:true,
@@ -23,12 +27,13 @@ const reducer = handleActions({
         loginFailed:true, 
         apiErrors:action.payload
     }),
-    [types.loginFailed]:(state, action) => ({
+    [types.loginSuccess]:(state, action) => ({
         ...state,
         loginInProgress:false,
         loginSuccess:true,
         loginFailed:false, 
-        token:action.payload
+        user:action.payload,
+        validSession:true
     }),
 
 },initialState)
